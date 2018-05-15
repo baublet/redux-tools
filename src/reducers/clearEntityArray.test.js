@@ -7,7 +7,7 @@ test('clears the entity array', () => {
         },
         newState = reducer(testState)
         
-    expect(newState.entities.length == 0)
+    expect(newState.entities.length).toBe(0)
 })
 
 test('clears the entity array with specific name', () => {
@@ -17,5 +17,5 @@ test('clears the entity array with specific name', () => {
         },
         newState = reducer(testState)
         
-    expect(newState.products.length == 0)
+    expect(newState.products.length).toBe(0)
 })
