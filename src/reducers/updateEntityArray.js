@@ -10,8 +10,7 @@ export default function updateEntityArray(
             entitiesToUpdate = Array.isArray(payload) ? payload : [payload]
 
         const updatedEntities = unionBy(
-            state[stateEntitiesProp].slice(0),
-            entitiesToUpdate,
+            entitiesToUpdate.concat(state[stateEntitiesProp]),
             entityIdentifier
         )
         return Object.assign({}, state, { [stateEntitiesProp]: updatedEntities })
