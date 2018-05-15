@@ -28,3 +28,18 @@ test('updates individual entities', () => {
     expect(newState.entities[0].name).toBe("Renamed Test")
     expect(newState.entities[0].newProp).toBe("New property")
 })
+
+test('adds individual entities', () => {
+    const reducer = updateEntityArray(),
+        testState = state(),
+        newState = reducer(testState, {
+            payload: {
+                entities: [{
+                        name: "New Test",
+                        id: 3
+                }]
+            }
+        })
+    expect(newState.entities.length).toBe(3)
+    expect(newState.entities[0].name).toBe("New Test")
+})
