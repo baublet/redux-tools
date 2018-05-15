@@ -1,4 +1,4 @@
-export default function updateEntityArray(
+export default function unsetEntityArray(
     stateEntitiesProp = "entities",
     actionPayloadProp = false,
     entityIdentifier = "id",
