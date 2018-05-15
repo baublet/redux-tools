@@ -1,0 +1,106 @@
+# Redux Tools
+
+Make developing the Redux parts of your application faster, simpler, and easier.
+
+## Installation
+
+```js
+// NPM
+npm install --save @baublet/redux-tools
+
+// Yarn
+yarn add @baublet/redux-tools
+```
+
+## Documentation
+
+### Create Reducer `createReducer(initialState, handlers)`
+
+`createReducer` simplifies and flattens the process of creating a reducer by turning them into easier-to-follow objects and functions, rather than cases, switches, and tons of white space. `createReducer` is the glue that holds `redux-tools` together.
+
+```js
+import { createReducer } from "@baublet/redux-tools"
+
+export UPDATE_IMAGE = "actions/UPDATE_IMAGE"
+export CLEAR_IMAGES = "actions/CLEAR_IMAGES"
+export DELETE_IMAGE = "actions/DELETE_IMAGE"
+
+// Images reducer
+const initialState = {
+    images: []
+}
+
+export default createReducer(initialState, {
+    UPDATE_IMAGE: (state, action) => {
+        // Update image code here, returning new state
+    },
+    CLEAR_IMAGES: (state, action) => {
+        // ...
+    },
+    // ...
+})
+```
+
+If none of the handlers passed in match the action type, `createReducer` simply returns the state, as one would normally do in a Redux reducer. Although this alone saves some time and effort with Redux, it gets far more useful when combined with Reducer Factories.
+
+### Reducer Factories
+
+Reducer Factories are functions that return functions. The returned functions follow the same signature as any other Redux reducer function, taking the arguments `(state, action)`. Their behavior changes based on the arguments you pass to the factory function. The returned function copies the state tree, modifies it some way, then returns the new state to be merged into the master state.
+
+#### Managing Entities
+
+Redux tools help you manage entities of any shape using either an array container or a map (e.g., an object).
+
+```js
+import { createReducer, clearEntityArray, updateEntityArray, unsetEntityArray } from "@baublet/redux-tools"
+
+// Products reducer
+const initialState = {
+    loading: false,
+    // Last syncronized from database
+    delta: null,
+    products: [],
+}
+
+export default createReducer(initialState, {
+    clearEntityArray: clearEntityArray("products"),
+    updateEntityArray: updateEntityArray("products"),
+    unsetEntityArray: unsetEntityArray("products"),
+})
+```
+
+##### Common arguments
+
+`stateEntitiesProp` the property of this chunk of state that contains your entities.
+
+`actionPayloadProp` the property of the action payload relevant to this reducer factory.
+
+##### `clearEntityArray|Map(stateEntitiesProp = "entities")`
+
+Clears all of the entities from this chunk of state. Use `clearEntityArray` if your entity storage is an array. Use `clearEntityMap` if your entity storage is an object map.
+
+##### `unsetEntityArray(stateEntitiesProp = "entities", actionPayloadProp = false, entityIdentifier = "id")`
+
+Unsets a specific integer in an entity array where `entityIdentifier` (e.g., `entity.id`) of the entity matches (or is in an array that comprises) `payload[actionPayloadProp]` _or_, if `actionPayloadProp` is `false`, `payload`.
+
+```js
+const reducerFunction = unsetEntityArray(),
+      oldState = {
+          entities: [{
+              name: "Test",
+              id: 1
+          }, {
+              name: "Test 2",
+              id: 2
+          }]
+      },
+      newState = reducerFunction(oldState, 2)
+
+//  newState = {
+//      entities: [{
+//          name: "Test",
+//          id: 1,
+//      }]
+//  }
+}
+```
