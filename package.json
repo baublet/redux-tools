@@ -1,10 +1,13 @@
 {
-  "name": "redux-tools",
+  "name": "@baublet/redux-tools",
   "version": "0.1.0",
   "description": "Reducer factories and selector tools for Redux",
   "main": "lib/redux-tools.js",
   "scripts": {
     "build": "webpack --config webpack.config.js",
+    "release:major": "npm run build && git commit -a -m \"Increment and release major\" && npm version major && npm publish && git push",
+    "release:minor": "npm run build && git commit -a -m \"Increment and release minor\" && npm version minor && npm publish && git push",
+    "release:patch": "npm run build && git commit -a -m \"Increment and release patch\" && npm version patch && npm publish && git push",
     "test": "jest"
   },
   "author": "Ryan Poe",
