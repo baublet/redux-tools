@@ -102,5 +102,4 @@ const reducerFunction = unsetEntityArray(),
 //          id: 1,
 //      }]
 //  }
-}
 ```
