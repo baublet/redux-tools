@@ -9,6 +9,8 @@ import clearEntityArray from "reducers/clearEntityArray"
 import updateEntityMap from "reducers/updateEntityMap"
 import clearEntityMap from "reducers/clearEntityMap"
 
+import combineSelectors from "selectors/combineSelectors"
+
 export default {
     createReducer,
     
@@ -19,5 +21,7 @@ export default {
     clearEntityArray,
     
     updateEntityMap,
-    clearEntityMap
+    clearEntityMap,
+    
+    combineSelectors
 }

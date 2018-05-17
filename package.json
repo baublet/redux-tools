@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "description": "Reducer factories and selector tools for Redux",
   "main": "lib/redux-tools.js",
+  "keywords": "redux, react, factories, reducers, reducer",
   "scripts": {
     "build": "webpack --config webpack.config.js",
     "release:major": "npm run build && git commit -a -m \"Increment and release major\" && npm version major && npm publish && git push",
