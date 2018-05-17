@@ -1,6 +1,6 @@
 {
   "name": "@baublet/redux-tools",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Reducer factories and selector tools for Redux",
   "main": "lib/redux-tools.js",
   "keywords": "redux, react, factories, reducers, reducer",
