@@ -11,17 +11,13 @@ import clearEntityMap from "reducers/clearEntityMap"
 
 import combineSelectors from "selectors/combineSelectors"
 
-export default {
+export {
     createReducer,
-    
     setProperty,
     unsetProperty,
-    
     updateEntityArray,
     clearEntityArray,
-    
     updateEntityMap,
     clearEntityMap,
-    
-    combineSelectors
+    combineSelectors,
 }
