@@ -1,7 +1,6 @@
 const path = require('path'),
-      webpack = require('webpack')
-
-module.exports = {
+      webpack = require('webpack'),
+      config = {
     entry: path.resolve(__dirname, 'src', 'index.js'),
     output: {
         path: path.resolve(__dirname, 'lib'),
@@ -22,3 +21,13 @@ module.exports = {
         // new webpack.optimize.UglifyJsPlugin(),
     ]
 }
+
+module.exports = [
+    config,
+    Object.assign({}, config, {
+        target: "node",
+        output: Object.assign({}, config.output, {
+            filename: 'redux-tools.node.js',
+        })
+    })
+]
