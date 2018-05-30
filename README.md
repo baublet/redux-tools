@@ -63,13 +63,13 @@ const initialState = {
 }
 
 export default createReducer(initialState, {
-    clearEntityArray: clearEntityArray("products"),
-    updateEntityArray: updateEntityArray("products"),
-    unsetEntityArray: unsetEntityArray("products"),
+    clearEntityArray: clearEntityArray({ stateEntitiesProp: "products" }),
+    updateEntityArray: updateEntityArray({ stateEntitiesProp: "products" }),
+    unsetEntityArray: unsetEntityArray({ stateEntitiesProp: "products" }),
 })
 ```
 
-##### Common arguments
+##### Common options
 
 `stateEntitiesProp` the property of this chunk of state that contains your entities.
 
@@ -82,7 +82,9 @@ Sets a property of the root state to the value of `payload`, or if `actionPayloa
 ```
 setProperty(
     prop,                       // Property to update
-    actionPayloadProp = null
+    {
+        actionPayloadProp = null
+    } = {}
 )
 ```
 
@@ -111,19 +113,19 @@ unsetProperty(
 
 ##### clearEntityArray|Map
 ```
-clearEntityArray(stateEntitiesProp = "entities")
-clearEntityMap(stateEntitiesProp = "entities")
+clearEntityArray({ stateEntitiesProp = "entities" } = {})
+clearEntityMap({ stateEntitiesProp = "entities" } = {})
 ```
 
 Clears all of the entities from this chunk of state. Use `clearEntityArray` if your entity storage is an array. Use `clearEntityMap` if your entity storage is an object map.
 
 ##### unsetEntityArray
 ```
-unsetEntityArray(
+unsetEntityArray({
     stateEntitiesProp = "entities",
     actionPayloadProp = false,
     entityIdentifier = "id"
-)
+} = {})
 ```
 
 Unsets a specific entity in an entity array where `entityIdentifier` (e.g., `entity.id`) of the entity matches (or is in an array that comprises) `payload[actionPayloadProp]` _or_, if `actionPayloadProp` is `false`, `payload`.
@@ -151,10 +153,10 @@ const reducerFunction = unsetEntityArray(),
 
 ##### unsetEntityMap
 ```
-unsetEntityMap(
+unsetEntityMap({
     stateEntitiesProp = "entities",
     actionPayloadProp = false
-)
+} = {})
 ```
 
 Unsets a specific entity in an entity map where the key of the entity matches `payload[actionPayloadProp]` _or_, if `actionPayloadProp` is `false`, `payload`.
@@ -164,11 +166,11 @@ Unsets a specific entity in an entity map where the key of the entity matches `p
 Updates an entity or entities in an entity array.
 
 ```
-updateEntityArray(
+updateEntityArray({
     stateEntitiesProp = "entities",
     actionPayloadProp = false,
     entityIdentifier = "id"
-)
+} = {})
 ```
 
 ##### updateEntityMap
@@ -176,11 +178,11 @@ updateEntityArray(
 Updates a number of entities entities in an entity map.
 
 ```
-updateEntityMap(
+updateEntityMap({
     stateEntitiesProp = "entities",
     actionPayloadProp = false,
     entityIdentifier = "id"
-)
+} = {})
 ```
 
 ##### updateEntityPropArray
@@ -190,10 +192,12 @@ Updates a property on a specific entity in an entity array.
 ```
 updateEntityPropArray(
     entityProp,
-    actionPayloadEntityIdentifier = "id",
-    stateEntitiesProp = "entities",
-    actionPayloadProp = "value",
-    entityIdentifier = "id"
+    {
+        actionPayloadEntityIdentifier = "id",
+        stateEntitiesProp = "entities",
+        actionPayloadProp = "value",
+        entityIdentifier = "id"
+    } = {}
 )
 ```
 
@@ -204,8 +208,10 @@ Updates a property on a specific entity in an entity map.
 ```
 updateEntityPropArray(
     entityProp,
-    actionPayloadEntityIdentifier = "id",
-    stateEntitiesProp = "entities",
-    actionPayloadProp = "value"
+    {
+        actionPayloadEntityIdentifier = "id",
+        stateEntitiesProp = "entities",
+        actionPayloadProp = "value"
+    } = {}
 )
 ```
