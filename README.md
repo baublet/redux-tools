@@ -75,11 +75,56 @@ export default createReducer(initialState, {
 
 `actionPayloadProp` the property of the action payload relevant to this reducer factory.
 
-##### `clearEntityArray|Map(stateEntitiesProp = "entities")`
+##### setProperty
+
+Sets a property of the root state to the value of `payload`, or if `actionPayloadProp` is set, sets the value to `payload[actionPayloadProp]`.
+
+```
+setProperty(
+    prop,                       // Property to update
+    actionPayloadProp = null
+)
+```
+
+##### setPropertyTo
+
+Sets a property of the root state to `value`.
+
+```
+setPropertyTo(
+    prop,   // Property to update
+    value   // Value to set property
+)
+```
+
+This is useful for `LOADING` and `NOT_LOADING` actions.
+
+##### unsetProperty
+
+Unsets a property of the root state.
+
+```
+unsetProperty(
+    prop,       // Property to unset
+)
+```
+
+##### clearEntityArray|Map
+```
+clearEntityArray(stateEntitiesProp = "entities")
+clearEntityMap(stateEntitiesProp = "entities")
+```
 
 Clears all of the entities from this chunk of state. Use `clearEntityArray` if your entity storage is an array. Use `clearEntityMap` if your entity storage is an object map.
 
-##### `unsetEntityArray(stateEntitiesProp = "entities", actionPayloadProp = false, entityIdentifier = "id")`
+##### unsetEntityArray
+```
+unsetEntityArray(
+    stateEntitiesProp = "entities",
+    actionPayloadProp = false,
+    entityIdentifier = "id"
+)
+```
 
 Unsets a specific integer in an entity array where `entityIdentifier` (e.g., `entity.id`) of the entity matches (or is in an array that comprises) `payload[actionPayloadProp]` _or_, if `actionPayloadProp` is `false`, `payload`.
 
@@ -102,4 +147,55 @@ const reducerFunction = unsetEntityArray(),
 //          id: 1,
 //      }]
 //  }
+```
+
+##### updateEntityArray
+
+Updates an entity or entities in an entity array.
+
+```
+updateEntityArray(
+    stateEntitiesProp = "entities",
+    actionPayloadProp = false,
+    entityIdentifier = "id"
+)
+```
+
+##### updateEntityMap
+
+Updates a number of entities entities in an entity map.
+
+```
+updateEntityMap(
+    stateEntitiesProp = "entities",
+    actionPayloadProp = false,
+    entityIdentifier = "id"
+)
+```
+
+##### updateEntityPropArray
+
+Updates a property on a specific entity in an entity array.
+
+```
+updateEntityPropArray(
+    entityProp,
+    actionPayloadEntityIdentifier = "id",
+    stateEntitiesProp = "entities",
+    actionPayloadProp = "value",
+    entityIdentifier = "id"
+)
+```
+
+##### updateEntityPropMap
+
+Updates a property on a specific entity in an entity map.
+
+```
+updateEntityPropArray(
+    entityProp,
+    actionPayloadEntityIdentifier = "id",
+    stateEntitiesProp = "entities",
+    actionPayloadProp = "value"
+)
 ```
