@@ -126,7 +126,7 @@ unsetEntityArray(
 )
 ```
 
-Unsets a specific integer in an entity array where `entityIdentifier` (e.g., `entity.id`) of the entity matches (or is in an array that comprises) `payload[actionPayloadProp]` _or_, if `actionPayloadProp` is `false`, `payload`.
+Unsets a specific entity in an entity array where `entityIdentifier` (e.g., `entity.id`) of the entity matches (or is in an array that comprises) `payload[actionPayloadProp]` _or_, if `actionPayloadProp` is `false`, `payload`.
 
 ```js
 const reducerFunction = unsetEntityArray(),
@@ -148,6 +148,16 @@ const reducerFunction = unsetEntityArray(),
 //      }]
 //  }
 ```
+
+##### unsetEntityMap
+```
+unsetEntityMap(
+    stateEntitiesProp = "entities",
+    actionPayloadProp = false
+)
+```
+
+Unsets a specific entity in an entity map where the key of the entity matches `payload[actionPayloadProp]` _or_, if `actionPayloadProp` is `false`, `payload`.
 
 ##### updateEntityArray
 
