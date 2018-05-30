@@ -1,7 +1,7 @@
-export default function unsetEntityMap(
+export default function unsetEntityMap({
     stateEntitiesProp = "entities",
     actionPayloadProp = false
-) {
+} = {}) {
     return (state, action) => {
         const payload = actionPayloadProp ? action.payload[actionPayloadProp] : action.payload,
             entitiesToUnset = Array.isArray(payload) ? payload : [payload]

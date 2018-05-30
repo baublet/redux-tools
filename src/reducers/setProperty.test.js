@@ -12,7 +12,7 @@ test('sets property when property not set', () => {
 })
 
 test('sets property when property not set using custom payload prop', () => {
-    const reducer = setProperty("loading", "isLoading"),
+    const reducer = setProperty("loading", { actionPayloadProp: "isLoading" }),
         testState = {
             entities: { a: 2 }
         },

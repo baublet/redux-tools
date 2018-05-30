@@ -11,7 +11,7 @@ test('clears the entity array', () => {
 })
 
 test('clears the entity array with specific name', () => {
-    const reducer = clearEntityArray("products"),
+    const reducer = clearEntityArray({ stateEntitiesProp: "products" }),
         testState = {
             products: [1, 2, 3]
         },
