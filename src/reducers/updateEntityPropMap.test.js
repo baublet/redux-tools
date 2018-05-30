@@ -31,7 +31,11 @@ test('updates individual entity props', () => {
 })
 
 test('updates individual entity props with alt payload props', () => {
-    const reducer = updateEntityPropMap("name", "ident", "entities", "val"),
+    const reducer = updateEntityPropMap("name", {
+            actionPayloadEntityIdentifier: "ident",
+            stateEntitiesProp: "entities",
+            actionPayloadProp: "val"
+        }),
         testState = state(),
         newState = reducer(testState, {
             payload: {

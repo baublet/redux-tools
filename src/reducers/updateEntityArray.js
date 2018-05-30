@@ -1,10 +1,10 @@
 import unionBy from "lodash.unionby"
 
-export default function updateEntityArray(
+export default function updateEntityArray({
     stateEntitiesProp = "entities",
     actionPayloadProp = "entities",
     entityIdentifier = "id",
-) {
+} = {}) {
     return (state, action) => {
         const payload = actionPayloadProp ? action.payload[actionPayloadProp] : action.payload,
             entitiesToUpdate = Array.isArray(payload) ? payload : [payload]

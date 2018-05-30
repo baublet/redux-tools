@@ -1,9 +1,11 @@
 export default function updateEntityPropArray(
     entityProp,
-    actionPayloadEntityIdentifier = "id",
-    stateEntitiesProp = "entities",
-    actionPayloadProp = "value",
-    entityIdentifier = "id"
+    {
+        actionPayloadEntityIdentifier = "id",
+        stateEntitiesProp = "entities",
+        actionPayloadProp = "value",
+        entityIdentifier = "id"
+    } = {}
 ) {
     return (state, action) => {
         const newValue = action.payload[actionPayloadProp],

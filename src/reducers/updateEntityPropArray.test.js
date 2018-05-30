@@ -27,7 +27,7 @@ test('updates individual entity props', () => {
 })
 
 test('updates individual entity props using alternative prop names', () => {
-    const reducer = updateEntityPropArray("name", "ident"),
+    const reducer = updateEntityPropArray("name", { actionPayloadEntityIdentifier: "ident" }),
         testState = state(),
         newState = reducer(testState, {
             payload: {
