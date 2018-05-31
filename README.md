@@ -111,7 +111,7 @@ export default createReducer(initialState, {
 
 #### Common options
 
-`stateEntitiesProp` the property of this chunk of state that contains your entities.
+`stateEntitiesProp` the property of this chunk of state that contains your entities. *Note,* in all cases, you should be able to use `null` for this value to indicate that this chunk of state is itself the entity store.
 
 `actionPayloadProp` the property of the action payload relevant to this reducer factory.
 
