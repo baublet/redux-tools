@@ -21,13 +21,11 @@ test('updates multiple entities in entity map', () => {
         testState = mapState(),
         newState = reducer(testState, {
             payload: {
-                entities: {
-                    a: {
-                        name: "Test Renamed!"
-                    },
-                    b: {
-                        name: "Also renamed!"
-                    }
+                a: {
+                    name: "Test Renamed!"
+                },
+                b: {
+                    name: "Also renamed!"
                 }
             }
         })
@@ -41,10 +39,8 @@ test('updates individual entity in entity map', () => {
         testState = mapState(),
         newState = reducer(testState, {
             payload: {
-                entities: {
-                    a: {
-                        name: "Test Renamed!"
-                    }
+                a: {
+                    name: "Test Renamed!"
                 }
             }
         })
@@ -69,12 +65,10 @@ test('updates individual entity in entity array', () => {
     const reducer = updateEntity(),
         testState = arrayState(),
         newState = reducer(testState, {
-            payload: {
-                entities: [{
-                    id: 1,
-                    name: "Test Renamed!"
-                }]
-            }
+            payload: [{
+                id: 1,
+                name: "Test Renamed!"
+            }]
         })
         expect(newState.entities[0].name).toBe("Test Renamed!")
         expect(newState.entities[1].name).toBe("Second Test")
@@ -84,15 +78,13 @@ test('updates multiple entities in entity array', () => {
     const reducer = updateEntity(),
         testState = arrayState(),
         newState = reducer(testState, {
-            payload: {
-                entities: [{
-                    id: 1,
-                    name: "Test Renamed!"
-                }, {
-                    id: 2,
-                    name: "Also renamed!"
-                }]
-            }
+            payload: [{
+                id: 1,
+                name: "Test Renamed!"
+            }, {
+                id: 2,
+                name: "Also renamed!"
+            }]
         })
         expect(newState.entities[0].name).toBe("Test Renamed!")
         expect(newState.entities[1].name).toBe("Also renamed!")

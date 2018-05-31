@@ -10,7 +10,9 @@ export default function updateEntityPropTo(
     return (state, action) => {
         const entities = !stateEntitiesProp ? state : state[stateEntitiesProp],
               isArray = Array.isArray(entities),
-              entityIdToUpdate = action.payload
+              entityIdToUpdate = actionPayloadEntityIdentifier ?
+                                    action.payload[actionPayloadEntityIdentifier] :
+                                    action.payload
         
         if(isArray) {
             const updatedEntities = state[stateEntitiesProp].map(entity => {

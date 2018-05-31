@@ -3,7 +3,7 @@ import copyArrayOrObject from "../helpers/copyArrayOrObject"
 
 export default function updateEntity({
     stateEntitiesProp = "entities",
-    actionPayloadProp = "entities",
+    actionPayloadProp = false,
     entityIdentifier = "id",
 } = {}) {
     return (state, action) => {
