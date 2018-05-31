@@ -47,35 +47,7 @@ If none of the handlers passed in match the action type, `createReducer` simply 
 
 Reducer Factories are functions that return functions. The returned functions follow the same signature as any other Redux reducer function, taking the arguments `(state, action)`. Their behavior changes based on the arguments you pass to the factory function. The returned function copies the state tree, modifies it some way, then returns the new state to be merged into the master state.
 
-#### Managing Entities
-
-Redux tools help you manage entities of any shape using either an array container or a map (e.g., an object).
-
-```js
-import { createReducer, clearEntityArray, updateEntityArray, unsetEntityArray } from "@baublet/redux-tools"
-
-// Products reducer
-const initialState = {
-    loading: false,
-    // Last syncronized from database
-    delta: null,
-    products: [],
-}
-
-export default createReducer(initialState, {
-    clearEntityArray: clearEntityArray({ stateEntitiesProp: "products" }),
-    updateEntityArray: updateEntityArray({ stateEntitiesProp: "products" }),
-    unsetEntityArray: unsetEntityArray({ stateEntitiesProp: "products" }),
-})
-```
-
-##### Common options
-
-`stateEntitiesProp` the property of this chunk of state that contains your entities.
-
-`actionPayloadProp` the property of the action payload relevant to this reducer factory.
-
-##### setProperty
+#### setProperty
 
 Sets a property of the root state to the value of `payload`, or if `actionPayloadProp` is set, sets the value to `payload[actionPayloadProp]`.
 
@@ -88,7 +60,7 @@ setProperty(
 )
 ```
 
-##### setPropertyTo
+#### setPropertyTo
 
 Sets a property of the root state to `value`.
 
@@ -101,7 +73,7 @@ setPropertyTo(
 
 This is useful for `LOADING` and `NOT_LOADING` actions.
 
-##### unsetProperty
+#### unsetProperty
 
 Unsets a property of the root state.
 
@@ -111,17 +83,52 @@ unsetProperty(
 )
 ```
 
-##### clearEntityArray|Map
-```
-clearEntityArray({ stateEntitiesProp = "entities" } = {})
-clearEntityMap({ stateEntitiesProp = "entities" } = {})
+### Managing Entities
+
+Redux tools help you manage entities of any shape using either an array container or a map (e.g., an object).
+
+```js
+import { createReducer, clearEntities, updateEntity, unsetEntity } from "@baublet/redux-tools"
+
+export const CLEAR_PRODUCTS = "products/CLEAR_PRODUCTS"
+export const UPDATE_PRODUCTS = "products/UPDATE_PRODUCTS"
+export const REMOVE_PRODUCT = "products/REMOVE_PRODUCT"
+
+// Products reducer
+const initialState = {
+    loading: false,
+    // Last syncronized from database
+    delta: null,
+    products: [],
+}
+
+export default createReducer(initialState, {
+    [CLEAR_PRODUCTS]:  clearEntities({ stateEntitiesProp: "products" }),
+    [UPDATE_PRODUCTS]: updateEntity({ stateEntitiesProp: "products" }),
+    [REMOVE_PRODUCT]:  unsetEntity({ stateEntitiesProp: "products" }),
+})
 ```
 
-Clears all of the entities from this chunk of state. Use `clearEntityArray` if your entity storage is an array. Use `clearEntityMap` if your entity storage is an object map.
+#### Common options
 
-##### unsetEntityArray
+`stateEntitiesProp` the property of this chunk of state that contains your entities.
+
+`actionPayloadProp` the property of the action payload relevant to this reducer factory.
+
+`entityIdentifier` the unique identifier for entities in object arrays. *Applicable only to entity arrays.*
+
+#### clearEntities
+
 ```
-unsetEntityArray({
+clearEntities({ stateEntitiesProp = "entities" } = {})
+```
+
+Clears all of the entities from this chunk of state.
+
+##### unsetEntity
+
+```
+unsetEntity({
     stateEntitiesProp = "entities",
     actionPayloadProp = false,
     entityIdentifier = "id"
@@ -130,8 +137,10 @@ unsetEntityArray({
 
 Unsets a specific entity in an entity array where `entityIdentifier` (e.g., `entity.id`) of the entity matches (or is in an array that comprises) `payload[actionPayloadProp]` _or_, if `actionPayloadProp` is `false`, `payload`.
 
+In an entity map, this unsets the key of the entity that matches `payload[actionPayloadProp]` _or_, if `actionPayloadProp` is `false`, `payload`.
+
 ```js
-const reducerFunction = unsetEntityArray(),
+const reducerFunction = unsetEntity(),
       oldState = {
           entities: [{
               name: "Test",
@@ -151,43 +160,19 @@ const reducerFunction = unsetEntityArray(),
 //  }
 ```
 
-##### unsetEntityMap
-```
-unsetEntityMap({
-    stateEntitiesProp = "entities",
-    actionPayloadProp = false
-} = {})
-```
-
-Unsets a specific entity in an entity map where the key of the entity matches `payload[actionPayloadProp]` _or_, if `actionPayloadProp` is `false`, `payload`.
-
-##### updateEntityArray
-
-Updates an entity or entities in an entity array.
+##### updateEntity
 
 ```
-updateEntityArray({
+updateEntity({
     stateEntitiesProp = "entities",
     actionPayloadProp = false,
     entityIdentifier = "id"
 } = {})
 ```
 
-##### updateEntityMap
+Updates an entity or entities in an entity array or map.
 
-Updates a number of entities entities in an entity map.
-
-```
-updateEntityMap({
-    stateEntitiesProp = "entities",
-    actionPayloadProp = false,
-    entityIdentifier = "id"
-} = {})
-```
-
-##### updateEntityPropArray
-
-Updates a property on a specific entity in an entity array.
+##### updateEntityProp
 
 ```
 updateEntityPropArray(
@@ -201,17 +186,18 @@ updateEntityPropArray(
 )
 ```
 
-##### updateEntityPropMap
+Updates a property on a specific entity in an entity array or map.
 
-Updates a property on a specific entity in an entity map.
+##### updateEntityPropTo
 
 ```
-updateEntityPropArray(
-    entityProp,
-    {
-        actionPayloadEntityIdentifier = "id",
-        stateEntitiesProp = "entities",
-        actionPayloadProp = "value"
-    } = {}
-)
+entityProp,
+value,
+{
+    actionPayloadEntityIdentifier = null,
+    stateEntitiesProp = "entities",
+    entityIdentifier = "id"
+} = {}
 ```
+
+Updates an entity property to a specific value. Useful for things like setting individual entity loading states.
