@@ -1,23 +1,34 @@
 import createReducer from "reducers/createReducer"
 
 import setProperty from "reducers/setProperty"
+import setPropertyTo from "reducers/setPropertyTo"
 import unsetProperty from "reducers/unsetProperty"
 
-import updateEntityArray from "reducers/updateEntityArray"
-import clearEntityArray from "reducers/clearEntityArray"
+import updateEntity from "reducers/updateEntity"
+import deleteEntity from "reducers/deleteEntity"
+import clearEntities from "reducers/clearEntities"
 
-import updateEntityMap from "reducers/updateEntityMap"
-import clearEntityMap from "reducers/clearEntityMap"
+import updateEntityProp from "reducers/updateEntityProp"
+import updateEntityPropTo from "reducers/updateEntityPropTo"
 
 import combineSelectors from "selectors/combineSelectors"
+
+// Aliases
+const updateEntities = updateEntity
 
 export {
     createReducer,
     setProperty,
+    setPropertyTo,
     unsetProperty,
-    updateEntityArray,
-    clearEntityArray,
-    updateEntityMap,
-    clearEntityMap,
+    
+    updateEntity,
+    updateEntities,
+    clearEntities,
+    deleteEntity,
+    
+    updateEntityProp,
+    updateEntityPropTo,
+    
     combineSelectors,
 }
