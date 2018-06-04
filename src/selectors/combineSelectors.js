@@ -1,8 +1,11 @@
-export default function combineSelectors(selectors) {
-    const keys = Object.keys(selectors)
+export default function combineSelectors() {
+    const args = arguments,
+          totalArguments = arguments.length
     return (state) => {
-        const props = {}
-        keys.forEach(prop => props[prop] = selectors[prop](state))
+        let props = {}
+        for(let i = 0; i < totalArguments; i++) {
+            props = Object.assign(props, args[i](state))
+        }
         return props
     }
 }

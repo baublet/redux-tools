@@ -2,16 +2,20 @@ import combineSelectors from "./combineSelectors"
 
 test('maps selectors together properly', () => {
     console.log(combineSelectors)
-    const combinedSelectors = combineSelectors({
-        selectorA: (state) => state.a,
-        selectorB: (state) => state.b
-    }),
+    const combinedSelectors = combineSelectors(
+        (state) => {
+            return { a: state.a }
+        },
+        (state) => {
+            return { b: state.b }
+        }
+    ),
     testState = {
         a: "1",
         b: "2"
     }
         
     expect(Object.keys(combinedSelectors(testState)).length).toBe(2)
-    expect(combinedSelectors(testState).selectorA).toBe(testState.a)
-    expect(combinedSelectors(testState).selectorB).toBe(testState.b)
+    expect(combinedSelectors(testState).a).toBe(testState.a)
+    expect(combinedSelectors(testState).b).toBe(testState.b)
 })

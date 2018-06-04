@@ -14,6 +14,30 @@ yarn add @baublet/redux-tools
 
 ## Documentation
 
+### Combine Selectors `combineSelectors(...)`
+
+`combineSelectors` takes a number of `mapStateToProps` functions and returns a new function that's a result of all of them combined.
+
+```js
+// ... MyComponent
+
+// Where withIsLoggedIn and withProducts are valid mapStateToProps functions.
+
+export default connect(combineSelectors(withIsLoggedIn, withProducts))(MyComponent)
+```
+
+### Combine, Connect, Select `combineConnectSelect(connect, ...selectors)`
+
+`combineConnectSelect` combines a number of selectors and connects them using the Redux `connect` function that you pass in as the first argument, then returns a function that decorates your component appropriately. Using this function, we can make the above function more readable:
+
+```js
+// ... MyComponent
+
+// Where withIsLoggedIn and withProducts are valid mapStateToProps functions.
+
+export default combineConnectSelect(connect, withIsLoggedIn, withProducts)(MyComponent)
+```
+
 ### Create Reducer `createReducer(initialState, handlers)`
 
 `createReducer` simplifies and flattens the process of creating a reducer by turning them into easier-to-follow objects and functions, rather than cases, switches, and tons of white space. `createReducer` is the glue that holds `redux-tools` together.
@@ -51,7 +75,7 @@ Reducer Factories are functions that return functions. The returned functions fo
 
 Sets a property of the root state to the value of `payload`, or if `actionPayloadProp` is set, sets the value to `payload[actionPayloadProp]`.
 
-```
+```js
 setProperty(
     prop,                       // Property to update
     {
@@ -64,7 +88,7 @@ setProperty(
 
 Sets a property of the root state to `value`.
 
-```
+```js
 setPropertyTo(
     prop,   // Property to update
     value   // Value to set property
@@ -77,7 +101,7 @@ This is useful for `LOADING` and `NOT_LOADING` actions.
 
 Unsets a property of the root state.
 
-```
+```js
 unsetProperty(
     prop,       // Property to unset
 )
@@ -119,7 +143,7 @@ export default createReducer(initialState, {
 
 #### clearEntities
 
-```
+```js
 clearEntities({ stateEntitiesProp = "entities" } = {})
 ```
 
@@ -127,7 +151,7 @@ Clears all of the entities from this chunk of state.
 
 ##### unsetEntity
 
-```
+```js
 unsetEntity({
     stateEntitiesProp = "entities",
     actionPayloadProp = false,
@@ -162,7 +186,7 @@ const reducerFunction = unsetEntity(),
 
 ##### updateEntity
 
-```
+```js
 updateEntity({
     stateEntitiesProp = "entities",
     actionPayloadProp = false,
@@ -174,7 +198,7 @@ Updates an entity or entities in an entity array or map.
 
 ##### updateEntityProp
 
-```
+```js
 updateEntityPropArray(
     entityProp,
     {
@@ -190,14 +214,16 @@ Updates a property on a specific entity in an entity array or map.
 
 ##### updateEntityPropTo
 
-```
-entityProp,
-value,
-{
-    actionPayloadEntityIdentifier = null,
-    stateEntitiesProp = "entities",
-    entityIdentifier = "id"
-} = {}
+```js
+updateEntityPropTo(
+    entityProp,
+    value,
+    {
+        actionPayloadEntityIdentifier = null,
+        stateEntitiesProp = "entities",
+        entityIdentifier = "id"
+    } = {}
+)
 ```
 
 Updates an entity property to a specific value. Useful for things like setting individual entity loading states.
