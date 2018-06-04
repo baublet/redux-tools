@@ -12,6 +12,8 @@ import updateEntityProp from "reducers/updateEntityProp"
 import updateEntityPropTo from "reducers/updateEntityPropTo"
 
 import combineSelectors from "selectors/combineSelectors"
+import combineConnectSelect from "selectors/combineConnectSelect"
+import withDispatch from "selectors/withDispatch"
 
 // Aliases
 const updateEntities = updateEntity
@@ -31,4 +33,6 @@ export {
     updateEntityPropTo,
     
     combineSelectors,
+    combineConnectSelect,
+    withDispatch
 }
