@@ -38,6 +38,20 @@ export default connect(combineSelectors(withIsLoggedIn, withProducts))(MyCompone
 export default combineConnectSelect(connect, withIsLoggedIn, withProducts)(MyComponent)
 ```
 
+### Selector Factories
+
+`withDispatch` -- a simple selector that maps your store's dispatcher to a component's `this.props`.
+
+```js
+withDispatch(store) {
+    return {
+        dispatch: store.dispatch
+    }
+}
+```
+
+Handy to use with `combineSelectors` so you don't have to write this simple function. *Note:* if you prefer to use `mapDispatchToProps`, you probably won't need this.
+
 ### Create Reducer `createReducer(initialState, handlers)`
 
 `createReducer` simplifies and flattens the process of creating a reducer by turning them into easier-to-follow objects and functions, rather than cases, switches, and tons of white space. `createReducer` is the glue that holds `redux-tools` together.
