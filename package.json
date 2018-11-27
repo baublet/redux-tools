@@ -24,5 +24,8 @@
   },
   "dependencies": {
     "lodash.unionby": "^4.8.0"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
